@@ -1,20 +1,20 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import API from "../api";
 
 export default function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // API already has /api baseURL, so just call /auth/register
       await API.post("/auth/register", { username, email, password });
       alert("Registration Complete! You can now log in.");
-      // After successful registration, go to login page
       navigate("/login");
     } catch (err) {
       setError(err.response?.data?.message || "Registration failed");
@@ -50,7 +50,7 @@ export default function Register() {
         <button type="submit">Register</button>
       </form>
       <p style={{ textAlign: "center", marginTop: "10px" }}>
-        Already have an account? <a href="/login">Login</a>
+        Already have an account? <Link to="/login">Login</Link>
       </p>
     </div>
   );
