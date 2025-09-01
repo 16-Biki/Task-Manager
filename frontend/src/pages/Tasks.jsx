@@ -19,7 +19,12 @@ export default function Tasks() {
       const res = await API.get("/tasks");
       setTasks(res.data);
     } catch (err) {
-      setError("Failed to fetch tasks");
+      if (err.response?.status === 401) {
+        localStorage.removeItem("token");
+        window.location.href = "/login";
+      } else {
+        setError("Failed to fetch tasks");
+      }
     }
   };
 

@@ -12,7 +12,6 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // API already has /api baseURL, so just call /auth/register
       await API.post("/auth/register", { username, email, password });
       alert("Registration Complete! You can now log in.");
       navigate("/login");
